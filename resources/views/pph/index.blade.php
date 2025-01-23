@@ -187,9 +187,7 @@
 </div>
 
 
-    <!-- <script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/custom/checkout/form-validation.js"></script> -->
-    <script src="{{asset('dist/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('custom/checkout/form-validation.js')}}"></script>
+    <script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/custom/checkout/form-validation.js"></script>
   </body>
 </html>
