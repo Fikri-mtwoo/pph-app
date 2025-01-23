@@ -41,7 +41,7 @@
 <div class="container">
   <main>
     <div class="py-5 text-center">
-      <img class="d-block mx-auto mb-4" src="/assets/brand/lambang-djp.png" alt="" width="200" >
+      <img class="d-block mx-auto mb-4" src="{{ asset('assets/brand/lambang-djp.png') }}" alt="" width="200" >
       <h2>PPh 21 (TER)</h2>
       <p class="lead">Pajak Penghasilan (PPh) adalah pungutan wajib atas setiap penghasilan yang diterima oleh Wajib Pajak orang pribadi dan badan usaha. PPh Pasal 21 merupakan jenis pajak yang dipungut atas penghasilan karyawan dari pemberi kerja.</p>
     </div>
