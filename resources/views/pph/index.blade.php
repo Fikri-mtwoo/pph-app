@@ -13,7 +13,8 @@
     
 
     <!-- Bootstrap core CSS -->
-    <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="{{asset('dist/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -186,7 +187,9 @@
 </div>
 
 
-    <script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/custom/checkout/form-validation.js"></script>
+    <!-- <script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/custom/checkout/form-validation.js"></script> -->
+    <script src="{{asset('dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('custom/checkout/form-validation.js')}}"></script>
   </body>
 </html>
