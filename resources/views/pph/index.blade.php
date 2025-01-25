@@ -56,7 +56,7 @@
 
             <div class="col-12">
               <label for="nama-karyawan" class="form-label">Nama Karyawan</label>
-              <input type="text" name="nama_karyawan" class="form-control @error('nama_karyawan') is-invalid @enderror" id="nama-karyawan" placeholder="Nama Karyawan...">
+              <input type="text" name="nama_karyawan" class="form-control @error('nama_karyawan') is-invalid @enderror" id="nama-karyawan" placeholder="Nama Karyawan..." value="{{ old('nama_karyawan') }}">
                 @error('nama_karyawan')
                     <div class="invalid-feedback">
                         {{ $message }}

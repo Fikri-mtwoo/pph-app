@@ -73,56 +73,61 @@ class PphController extends Controller
             }
         }
 
-        $bruto = ($request->gaji_pokok * 12) + ($request->tun_makan * 12) + ($request->tun_transport * 12) + ($request->tun_jabatan * 12) + ($request->tun_kesehatan * 12);
-        $netto = $bruto - (($request->biaya_jabatan * 12) + ($request->biaya_pensiun * 12));
-        $pkp = $netto - $ptkp;
-        while ($pkp > 0) {
-            if ($pkp > 0 and $pkp <= 50000000) {
-                $persen = 5;
-                $pajak_terhutang = ($pkp * $persen) / 100;
-                $pkp = 0;
-            } else if ($pkp > 50000000 and $pkp <= 250000000) {
-                $persen = 15;
-                $pajak_terhutang = (($pkp - 50000000) * $persen) / 100;
-                $pkp = 50000000;
-            } else if ($pkp > 250000000 and $pkp <= 500000000) {
-                $persen = 25;
-                $pajak_terhutang = (($pkp - 250000000) * $persen) / 100;
-                $pkp = 250000000;
-            } else {
-                $persen = 30;
-                $pajak_terhutang = (($pkp - 500000000) * $persen) / 100;
-                $pkp = 500000000;
+        try {
+            //code...
+            $bruto = ($request->gaji_pokok * 12) + ($request->tun_makan * 12) + ($request->tun_transport * 12) + ($request->tun_jabatan * 12) + ($request->tun_kesehatan * 12);
+            $netto = $bruto - (($request->biaya_jabatan * 12) + ($request->biaya_pensiun * 12));
+            $pkp = $netto - $ptkp;
+            while ($pkp > 0) {
+                if ($pkp > 0 and $pkp <= 50000000) {
+                    $persen = 5;
+                    $pajak_terhutang = ($pkp * $persen) / 100;
+                    $pkp = 0;
+                } else if ($pkp > 50000000 and $pkp <= 250000000) {
+                    $persen = 15;
+                    $pajak_terhutang = (($pkp - 50000000) * $persen) / 100;
+                    $pkp = 50000000;
+                } else if ($pkp > 250000000 and $pkp <= 500000000) {
+                    $persen = 25;
+                    $pajak_terhutang = (($pkp - 250000000) * $persen) / 100;
+                    $pkp = 250000000;
+                } else {
+                    $persen = 30;
+                    $pajak_terhutang = (($pkp - 500000000) * $persen) / 100;
+                    $pkp = 500000000;
+                }
+                $data[] = [
+                    "persen" => $persen,
+                    "pajak" => $pajak_terhutang
+                ];
             }
-            $data[] = [
-                "persen" => $persen,
-                "pajak" => $pajak_terhutang
+            $total = 0;
+            foreach ($data as $value) {
+                $total += $value['pajak'];
+            }
+            $data_pajak = [
+                "nama" => $request->nama_karyawan,
+                "status" => $status,
+                "tanggungan" => $tanggungan,
+                "gaji_pokok" => $request->gaji_pokok,
+                "biaya_jabatan" => $request->biaya_jabatan,
+                "tun_makan" => $request->tun_makan,
+                "tun_transport" => $request->tun_transport,
+                "tun_jabatan" => $request->tun_jabatan,
+                "tun_kesehatan" => $request->tun_kesehatan,
+                "biaya_pensiun" => $request->biaya_pensiun,
+                "bruto" => $bruto,
+                "netto" => $netto,
+                "ptkp" => $ptkp,
+                "pkp" => $netto - $ptkp,
+                "pajak" => $data,
+                "total" => $total
             ];
+            return view('pph.view', $data_pajak);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect()->route('pph.index');
         }
-        $total = 0;
-        foreach ($data as $value) {
-            $total += $value['pajak'];
-        }
-        $data_pajak = [
-            "nama" => $request->nama_karyawan,
-            "status" => $status,
-            "tanggungan" => $tanggungan,
-            "gaji_pokok" => $request->gaji_pokok,
-            "biaya_jabatan" => $request->biaya_jabatan,
-            "tun_makan" => $request->tun_makan,
-            "tun_transport" => $request->tun_transport,
-            "tun_jabatan" => $request->tun_jabatan,
-            "tun_kesehatan" => $request->tun_kesehatan,
-            "biaya_pensiun" => $request->biaya_pensiun,
-            "bruto" => $bruto,
-            "netto" => $netto,
-            "ptkp" => $ptkp,
-            "pkp" => $netto - $ptkp,
-            "pajak" => $data,
-            "total" => $total
-        ];
-        return view('pph.view', $data_pajak);
-        // return redirect()->route('pph.create')->with(['data', $data_pajak]);
     }
 
     public function create()
